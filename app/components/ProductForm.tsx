@@ -24,9 +24,9 @@ export function ProductForm({
         if (option.optionValues.length === 1) return null;
 
         return (
-          <div className="product-options" key={option.name}>
-            <h5>{option.name}</h5>
-            <div className="product-options-grid">
+          <div className="mb-6" key={option.name}>
+            <h5 className="font-bold text-grey-700 mb-3 text-sm uppercase tracking-wide">{option.name}</h5>
+            <div className="flex flex-wrap gap-3">
               {option.optionValues.map((value) => {
                 const {
                   name,
@@ -39,6 +39,11 @@ export function ProductForm({
                   swatch,
                 } = value;
 
+                const baseStyles = `relative flex items-center justify-center px-4 py-2 text-sm font-medium border transition-all duration-200
+                ${selected ? 'border-purple-600 bg-purple-50 text-purple-700 ring-1 ring-purple-600'
+                  : 'border-gray-200 text-gray-600 hover:border-gray-400 hover:bg-gray-50'
+                } ${!available ? 'opacity-50 cursor-not-allowed decoration-dashed' : 'cursor-pointer'}`;
+                
                 if (isDifferentProduct) {
                   // SEO
                   // When the variant is a combined listing child product
@@ -46,7 +51,7 @@ export function ProductForm({
                   // as an anchor tag
                   return (
                     <Link
-                      className="product-options-item"
+                      className={baseStyles}
                       key={option.name + name}
                       prefetch="intent"
                       preventScrollReset
@@ -71,8 +76,8 @@ export function ProductForm({
                   return (
                     <button
                       type="button"
-                      className={`product-options-item${
-                        exists && !selected ? ' link' : ''
+                      className={`${baseStyles}${
+                        exists && !selected ? ' hover:bg-gray-100' : ''
                       }`}
                       key={option.name + name}
                       style={{
@@ -102,6 +107,7 @@ export function ProductForm({
         );
       })}
       <AddToCartButton
+        className={`w-full py-3 font-bold uppercase tracking-wide text-white bg-purple-600 hover:bg-purple-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed`}
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
           open('cart');
