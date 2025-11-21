@@ -1,5 +1,5 @@
 import {redirect, useLoaderData} from 'react-router';
-import type {Route} from './+types/products.$handle';
+import type {Route} from './+types/($locale).products.$handle';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -101,7 +101,7 @@ export default function Product() {
     <div className="product">
       <ProductImage image={selectedVariant?.image} />
       <div className="product-main">
-        <h1>{title}</h1>
+        <h1 className="text-4xl font-bold text-purple-600 mb-4 border-b border-gray-200 pb-2">{title}</h1>
         <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}
@@ -119,6 +119,9 @@ export default function Product() {
         <br />
         <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
         <br />
+        <div className="mt-2 text-sm text-gray-500 font-mono">
+  SKU: {selectedVariant?.sku || 'N/A'}
+</div>
       </div>
       <Analytics.ProductView
         data={{
