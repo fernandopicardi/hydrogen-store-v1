@@ -76,6 +76,10 @@ aside header h2 {
 
 aside main {
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--header-height) - 2rem);
+  overflow: hidden;
 }
 
 aside p {
@@ -239,14 +243,28 @@ button.reset:hover:not(:has(> *)) {
 * --------------------------------------------------
 */
 .cart-main {
-  height: 100%;
-  max-height: calc(100vh - var(--cart-aside-summary-height));
-  overflow-y: auto;
   width: auto;
 }
 
+/* Layout flexbox para aside - altura e overflow gerenciados pelo flexbox */
+.cart-main.flex {
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+/* Ocultar scrollbar mas manter funcionalidade de scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
 .cart-main.with-discount {
-  max-height: calc(100vh - var(--cart-aside-summary-height-with-discount));
+  /* Mantido para compatibilidade */
 }
 
 .cart-line {
