@@ -289,7 +289,7 @@ export function SearchPopup({isOpen, onClose}: SearchPopupProps) {
       >
         <div
           ref={popupRef}
-          className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl transform transition-all duration-300 ease-out scale-100 pointer-events-auto"
+          className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl transform transition-all duration-300 ease-out scale-100 pointer-events-auto border border-gray-200"
           style={{
             animation: isOpen
               ? 'searchPopupEnter 0.3s ease-out'
@@ -418,23 +418,23 @@ export function SearchPopup({isOpen, onClose}: SearchPopupProps) {
             <div className="border-t border-gray-200 px-4 py-3 flex items-center justify-between text-xs text-gray-500 bg-gray-50 rounded-b-2xl">
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs">
+                  <kbd className="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs text-gray-900">
                     ↑
                   </kbd>
-                  <kbd className="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs">
+                  <kbd className="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs text-gray-900">
                     ↓
                   </kbd>
                   <span>to navigate</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs">
+                  <kbd className="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs text-gray-900">
                     Enter
                   </kbd>
                   <span>to select</span>
                 </span>
               </div>
               <span className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs">
+                <kbd className="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs text-gray-900">
                   Esc
                 </kbd>
                 <span>to close</span>
