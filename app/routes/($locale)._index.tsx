@@ -1,6 +1,26 @@
-import { Link, useLoaderData } from 'react-router';
-import { Image } from '@shopify/hydrogen';
+import { useLoaderData } from 'react-router';
 import type { LoaderFunctionArgs } from 'react-router';
+import { HeroSection } from '~/components/sections/HeroSection';
+import { FeaturesSection } from '~/components/sections/FeaturesSection';
+import { FeaturedProductsSection } from '~/components/sections/FeaturedProductsSection';
+import { CTASection } from '~/components/sections/CTASection';
+import { TestimonialsSection } from '~/components/sections/TestimonialsSection';
+import { FAQSection } from '~/components/sections/FAQSection';
+
+const PRODUCT_VARIANT_FRAGMENT = `#graphql
+  fragment ProductVariant on ProductVariant {
+    id
+    availableForSale
+    price {
+      amount
+      currencyCode
+    }
+    selectedOptions {
+      name
+      value
+    }
+  }
+` as const;
 
 const HOMEPAGE_QUERY = `#graphql
   query homepage($country: CountryCode, $language: LanguageCode)
@@ -28,9 +48,13 @@ const HOMEPAGE_QUERY = `#graphql
             currencyCode
           }
         }
+        selectedOrFirstAvailableVariant {
+          ...ProductVariant
+        }
       }
     }
   }
+  ${PRODUCT_VARIANT_FRAGMENT}
 ` as const;
 
 export async function loader({ context }: LoaderFunctionArgs) {
@@ -43,56 +67,112 @@ export async function loader({ context }: LoaderFunctionArgs) {
   return { shop, products };
 }
 
+// Dados estáticos para as seções
+const features = [
+  {
+    title: 'High Quality Products',
+    description: 'We source only the finest materials to ensure your satisfaction with every purchase.',
+    icon: '✨',
+  },
+  {
+    title: 'Fast Shipping',
+    description: 'Get your orders delivered quickly with our reliable shipping partners worldwide.',
+    icon: '🚀',
+  },
+  {
+    title: 'Secure Payment',
+    description: 'Your transactions are protected with industry-leading security measures.',
+    icon: '🔒',
+  },
+  {
+    title: '24/7 Support',
+    description: 'Our customer service team is always ready to help you with any questions.',
+    icon: '💬',
+  },
+  {
+    title: 'Easy Returns',
+    description: 'Not satisfied? Return your purchase within 30 days for a full refund.',
+    icon: '↩️',
+  },
+  {
+    title: 'Eco-Friendly',
+    description: 'We are committed to sustainable practices and environmentally conscious products.',
+    icon: '🌱',
+  },
+];
+
+const testimonials = [
+  {
+    name: 'Sarah Johnson',
+    role: 'Verified Customer',
+    content: 'Amazing quality and fast shipping! I love my purchase and will definitely shop here again.',
+    rating: 5,
+  },
+  {
+    name: 'Michael Chen',
+    role: 'Verified Customer',
+    content: 'Great customer service and the products exceeded my expectations. Highly recommended!',
+    rating: 5,
+  },
+  {
+    name: 'Emily Rodriguez',
+    role: 'Verified Customer',
+    content: 'The best shopping experience I\'ve had online. Quality products at great prices.',
+    rating: 5,
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is your return policy?',
+    answer: 'We offer a 30-day return policy on all unused items in their original packaging. Simply contact our customer service team to initiate a return.',
+  },
+  {
+    question: 'How long does shipping take?',
+    answer: 'Standard shipping typically takes 5-7 business days. Express shipping options are available at checkout for faster delivery.',
+  },
+  {
+    question: 'Do you ship internationally?',
+    answer: 'Yes, we ship to most countries worldwide. Shipping costs and delivery times vary by location. Check our shipping page for details.',
+  },
+  {
+    question: 'What payment methods do you accept?',
+    answer: 'We accept all major credit cards, PayPal, and various other payment methods depending on your location.',
+  },
+  {
+    question: 'How can I track my order?',
+    answer: 'Once your order ships, you will receive a tracking number via email. You can use this to track your package on our website or the carrier\'s site.',
+  },
+];
+
 export default function Homepage() {
   const { shop, products } = useLoaderData<any>();
 
+  const scrollToProducts = () => {
+    const productsSection = document.getElementById('featured-products');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="bg-gray-950 min-h-screen text-white pb-20">
-      
-      <div className="flex flex-col items-center gap-6 text-center max-w-2xl px-4 mx-auto py-20">
-        <h1 className="text-6xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-600">
-          {shop.name}
-        </h1>
-        <p className="text-xl text-gray-300 leading-relaxed">
-          {shop.description || "Welcome to our custom Hydrogen Store."}
-        </p>
+      <HeroSection shop={shop} onShopNowClick={scrollToProducts} />
+      <FeaturesSection features={features} />
+      <div id="featured-products">
+        <FeaturedProductsSection products={products} />
       </div>
-
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 border-b border-gray-800 pb-4">
-          Our Products
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products.nodes.map((product: any) => (
-            <Link
-              key={product.id}
-              to={`/products/${product.handle}`}
-              className="group bg-gray-900 rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-purple-900/20 transition-all duration-300 block"
-            >
-              <div className="aspect-square overflow-hidden bg-gray-800 relative">
-                {product.featuredImage && (
-                  <Image
-                    data={product.featuredImage}
-                    sizes="(min-width: 45em) 30vw, 50vw"
-                    className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
-                  />
-                )}
-              </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl text-white font-bold mb-2 group-hover:text-purple-400 transition-colors duration-300">
-                  {product.title}
-                </h3>
-                <span className="text-xs text-white">{product.description}</span>
-                <div className="text-purple-400 font-mono">
-                  {product.priceRange.minVariantPrice.currencyCode} {product.priceRange.minVariantPrice.amount}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <CTASection
+        title="Ready to Get"
+        titleHighlight="Started?"
+        subtitle="Explore our collection and find the perfect products for you"
+        buttonText="Shop Now"
+        buttonLink="#"
+        variant="primary"
+        onButtonClick={scrollToProducts}
+      />
+      <TestimonialsSection testimonials={testimonials} />
+      <FAQSection faqs={faqs} />
     </div>
   );
 }
