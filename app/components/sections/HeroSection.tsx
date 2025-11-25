@@ -1,3 +1,5 @@
+// Hero section - customize colors via Tailwind classes
+// Overlay gradient and text colors can be adjusted for different backgrounds
 import heroImage from '~/assets/hero-image.jpg';
 
 interface HeroSectionProps {

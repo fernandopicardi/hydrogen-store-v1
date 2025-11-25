@@ -1,3 +1,5 @@
+// Paginated resource section - customize colors via Tailwind classes
+// Navigation links: text-purple-600 hover:text-purple-700
 import * as React from 'react';
 import {Pagination} from '@shopify/hydrogen';
 
@@ -23,7 +25,13 @@ export function PaginatedResourceSection<NodesType>({
         return (
           <div>
             <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
+              {isLoading ? (
+                <span className="text-gray-500">Loading...</span>
+              ) : (
+                <span className="text-purple-600 hover:text-purple-700 font-medium transition-colors cursor-pointer">
+                  ↑ Load previous
+                </span>
+              )}
             </PreviousLink>
             {resourcesClassName ? (
               <div className={resourcesClassName}>{resourcesMarkup}</div>
@@ -31,7 +39,13 @@ export function PaginatedResourceSection<NodesType>({
               resourcesMarkup
             )}
             <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
+              {isLoading ? (
+                <span className="text-gray-500">Loading...</span>
+              ) : (
+                <span className="text-purple-600 hover:text-purple-700 font-medium transition-colors cursor-pointer">
+                  Load more ↓
+                </span>
+              )}
             </NextLink>
           </div>
         );

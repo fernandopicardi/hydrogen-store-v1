@@ -105,12 +105,14 @@ export async function loader({context}: Route.LoaderArgs) {
   return await cart.get();
 }
 
+// Cart page - customize colors via Tailwind classes
+// Container bg: bg-white, text: text-gray-900
 export default function Cart() {
   const cart = useLoaderData<typeof loader>();
 
   return (
-    <div className="cart">
-      <h1>Cart</h1>
+    <div className="cart max-w-7xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-gray-900 mb-6">Cart</h1>
       <CartMain layout="page" cart={cart} />
     </div>
   );

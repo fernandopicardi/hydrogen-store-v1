@@ -1,3 +1,5 @@
+// FAQ section - customize colors via Tailwind classes
+// Card bg: bg-white, borders: border-gray-200, text: text-gray-900/700
 import { useState } from 'react';
 import { SectionHeader } from './SectionHeader';
 
@@ -29,22 +31,22 @@ export function FAQSection({ faqs }: FAQSectionProps) {
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800"
+            className="bg-white rounded-xl overflow-hidden border border-gray-200"
           >
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-800 transition-colors duration-200"
+              className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
             >
-              <span className="text-white font-bold text-lg pr-4">
+              <span className="text-gray-900 font-bold text-lg pr-4">
                 {faq.question}
               </span>
-              <span className="text-purple-400 text-2xl flex-shrink-0">
+              <span className="text-purple-600 text-2xl flex-shrink-0">
                 {openIndex === index ? '−' : '+'}
               </span>
             </button>
             {openIndex === index && (
-              <div className="px-6 py-4 border-t border-gray-800">
-                <p className="text-gray-300 leading-relaxed">
+              <div className="px-6 py-4 border-t border-gray-200">
+                <p className="text-gray-700 leading-relaxed">
                   {faq.answer}
                 </p>
               </div>

@@ -42,12 +42,14 @@ function loadDeferredData({context}: Route.LoaderArgs) {
   return {};
 }
 
+// Collections index page - customize colors via Tailwind classes
+// Container bg: bg-white, text: text-gray-900
 export default function Collections() {
   const {collections} = useLoaderData<typeof loader>();
 
   return (
-    <div className="collections">
-      <h1>Collections</h1>
+    <div className="collections max-w-7xl mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold text-gray-900 mb-8">Collections</h1>
       <PaginatedResourceSection<CollectionFragment>
         connection={collections}
         resourcesClassName="collections-grid"

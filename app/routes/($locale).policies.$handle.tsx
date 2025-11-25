@@ -41,19 +41,33 @@ export async function loader({params, context}: Route.LoaderArgs) {
   return {policy};
 }
 
+// Policy page - customize colors via Tailwind classes
+// Container bg: bg-white, text: text-gray-900/700
+// Spacing: py-12 sm:py-16 for vertical, px-4 sm:px-6 lg:px-8 for horizontal
 export default function Policy() {
   const {policy} = useLoaderData<typeof loader>();
 
   return (
-    <div className="policy">
-      <br />
-      <br />
-      <div>
-        <Link to="/policies">← Back to Policies</Link>
+    <div className="policy m-6 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="mb-8 max-w-4xl mx-auto m-6">
+        <Link 
+          to="/policies" 
+          className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-medium transition-colors no-underline"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Policies
+        </Link>
       </div>
-      <br />
-      <h1>{policy.title}</h1>
-      <div dangerouslySetInnerHTML={{__html: policy.body}} />
+      <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-8 leading-tight">{policy.title}</h1>
+      <div 
+        className="prose prose-gray prose-lg max-w-none text-gray-700 leading-relaxed"
+        style={{
+          lineHeight: '1.75',
+        }}
+        dangerouslySetInnerHTML={{__html: policy.body}} 
+      />
     </div>
   );
 }

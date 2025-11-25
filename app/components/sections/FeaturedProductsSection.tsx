@@ -1,3 +1,5 @@
+// Featured products section - customize colors via Tailwind classes
+// Card bg: bg-white, borders: border-gray-200, text: text-gray-900/700/600
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Image } from '@shopify/hydrogen';
@@ -123,11 +125,11 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
 
   return (
     <div
-      className="flex-shrink-0 w-80 bg-gray-900 rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-purple-900/20 transition-all duration-300"
+      className="flex-shrink-0 w-80 bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-purple-100 transition-all duration-300"
       style={{ scrollSnapAlign: 'center' }}
     >
       <Link to={`/products/${product.handle}`} className="block">
-        <div className="aspect-square overflow-hidden bg-gray-800 relative">
+        <div className="aspect-square overflow-hidden bg-gray-100 relative">
           {product.featuredImage && (
             <Image
               data={product.featuredImage}
@@ -140,35 +142,35 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
       
       <div className="p-6">
         <Link to={`/products/${product.handle}`}>
-          <h3 className="text-xl text-white font-bold mb-2 hover:text-purple-400 transition-colors duration-300">
+          <h3 className="text-xl text-gray-900 font-bold mb-2 hover:text-purple-600 transition-colors duration-300">
             {product.title}
           </h3>
         </Link>
-        <p className="text-sm text-gray-400 mb-4 line-clamp-2">{product.description}</p>
+        <p className="text-sm text-gray-600 mb-4 line-clamp-2">{product.description}</p>
         
-        <div className="text-purple-400 font-mono text-lg mb-4">
+        <div className="text-purple-600 font-mono text-lg mb-4">
           {variant.price.currencyCode} {variant.price.amount}
         </div>
 
         {/* Quantity Selector */}
         <div className="flex items-center gap-3 mb-4">
-          <span className="text-gray-300 text-sm">Quantity:</span>
-          <div className="flex items-center gap-2 border border-gray-700 rounded-lg">
+          <span className="text-gray-700 text-sm">Quantity:</span>
+          <div className="flex items-center gap-2 border border-gray-300 rounded-lg">
             <button
               type="button"
               onClick={() => handleQuantityChange(-1)}
-              className="px-3 py-1 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+              className="px-3 py-1 text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
               disabled={quantity <= 1}
             >
               −
             </button>
-            <span className="px-4 py-1 text-white font-semibold min-w-[3ch] text-center">
+            <span className="px-4 py-1 text-gray-900 font-semibold min-w-[3ch] text-center">
               {quantity}
             </span>
             <button
               type="button"
               onClick={() => handleQuantityChange(1)}
-              className="px-3 py-1 text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+              className="px-3 py-1 text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors"
               disabled={quantity >= 10}
             >
               +

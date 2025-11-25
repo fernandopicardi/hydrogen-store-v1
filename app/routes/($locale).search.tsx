@@ -36,29 +36,36 @@ export async function loader({request, context}: Route.LoaderArgs) {
 /**
  * Renders the /search route
  */
+// Search page - customize colors via Tailwind classes
+// Container bg: bg-white, text: text-gray-900/700
 export default function SearchPage() {
   const {type, term, result, error} = useLoaderData<typeof loader>();
   if (type === 'predictive') return null;
 
   return (
-    <div className="search">
-      <h1>Search</h1>
+    <div className="search max-w-7xl mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold text-gray-900 mb-6">Search</h1>
       <SearchForm>
         {({inputRef}) => (
-          <>
+          <div className="flex gap-2 mb-6">
             <input
               defaultValue={term}
               name="q"
               placeholder="Search…"
               ref={inputRef}
               type="search"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
             />
-            &nbsp;
-            <button type="submit">Search</button>
-          </>
+            <button 
+              type="submit"
+              className="px-6 py-2 bg-purple-600 text-white font-medium rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors"
+            >
+              Search
+            </button>
+          </div>
         )}
       </SearchForm>
-      {error && <p style={{color: 'red'}}>{error}</p>}
+      {error && <p className="text-red-600 mb-4">{error}</p>}
       {!term || !result?.total ? (
         <SearchResults.Empty />
       ) : (

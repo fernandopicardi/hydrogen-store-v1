@@ -7,8 +7,8 @@ import { CTASection } from '~/components/sections/CTASection';
 import { TestimonialsSection } from '~/components/sections/TestimonialsSection';
 import { FAQSection } from '~/components/sections/FAQSection';
 
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
-  fragment ProductVariant on ProductVariant {
+const HOMEPAGE_PRODUCT_VARIANT_FRAGMENT = `#graphql
+  fragment HomepageProductVariant on ProductVariant {
     id
     availableForSale
     price {
@@ -49,12 +49,12 @@ const HOMEPAGE_QUERY = `#graphql
           }
         }
         selectedOrFirstAvailableVariant {
-          ...ProductVariant
+          ...HomepageProductVariant
         }
       }
     }
   }
-  ${PRODUCT_VARIANT_FRAGMENT}
+  ${HOMEPAGE_PRODUCT_VARIANT_FRAGMENT}
 ` as const;
 
 export async function loader({ context }: LoaderFunctionArgs) {
@@ -156,7 +156,7 @@ export default function Homepage() {
   };
 
   return (
-    <div className="bg-gray-950 min-h-screen text-white pb-20">
+    <div className="bg-white min-h-screen pb-20">
       <HeroSection shop={shop} onShopNowClick={scrollToProducts} />
       <FeaturesSection features={features} />
       <div id="featured-products">

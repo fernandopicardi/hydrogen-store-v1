@@ -1,3 +1,5 @@
+// Testimonials section - customize colors via Tailwind classes
+// Card bg: bg-white, borders: border-gray-200, text: text-gray-900/700/600
 import { useRef, useEffect } from 'react';
 import { SectionHeader } from './SectionHeader';
 
@@ -63,7 +65,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
         {/* Left Arrow */}
         <button
           onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-gray-800 text-white p-3 rounded-full transition-all duration-200 shadow-lg"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-gray-200 hover:bg-gray-50 text-gray-700 p-3 rounded-full transition-all duration-200 shadow-lg"
           aria-label="Scroll left"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +76,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
         {/* Right Arrow */}
         <button
           onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-gray-800 text-white p-3 rounded-full transition-all duration-200 shadow-lg"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-gray-200 hover:bg-gray-50 text-gray-700 p-3 rounded-full transition-all duration-200 shadow-lg"
           aria-label="Scroll right"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,7 +98,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-80 bg-gray-900 rounded-xl p-6 hover:shadow-2xl hover:shadow-purple-900/20 transition-all duration-300"
+              className="flex-shrink-0 w-80 bg-white border border-gray-200 rounded-xl p-6 hover:shadow-xl hover:shadow-purple-100 transition-all duration-300"
               style={{ scrollSnapAlign: 'center' }}
             >
               {testimonial.rating && (
@@ -108,13 +110,13 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                   ))}
                 </div>
               )}
-              <p className="text-gray-300 leading-relaxed mb-4 italic">
+              <p className="text-gray-700 leading-relaxed mb-4 italic">
                 "{testimonial.content}"
               </p>
-              <div className="border-t border-gray-800 pt-4">
-                <p className="text-white font-bold">{testimonial.name}</p>
+              <div className="border-t border-gray-200 pt-4">
+                <p className="text-gray-900 font-bold">{testimonial.name}</p>
                 {testimonial.role && (
-                  <p className="text-gray-400 text-sm">{testimonial.role}</p>
+                  <p className="text-gray-600 text-sm">{testimonial.role}</p>
                 )}
               </div>
             </div>

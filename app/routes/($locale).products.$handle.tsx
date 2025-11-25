@@ -97,8 +97,10 @@ export default function Product() {
 
   const {title, descriptionHtml} = product;
 
+  // Product page - customize colors via Tailwind classes
+  // Container bg: bg-white, text: text-gray-900/700
   return (
-    <div className="product">
+    <div className="product max-w-7xl mx-auto px-4 py-8">
       <ProductImage image={selectedVariant?.image} />
       <div className="product-main">
         <h1 className="text-4xl font-bold text-purple-600 mb-4 border-b border-gray-200 pb-2">{title}</h1>
@@ -113,15 +115,17 @@ export default function Product() {
         />
         <br />
         <br />
-        <p>
+        <p className="text-gray-900 font-semibold mb-2">
           <strong>Description</strong>
         </p>
-        <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+        <div 
+          className="prose prose-gray max-w-none text-gray-700"
+          dangerouslySetInnerHTML={{__html: descriptionHtml}} 
+        />
         <br />
         <div className="mt-2 text-sm text-gray-500 font-mono">
-  SKU: {selectedVariant?.sku || 'N/A'}
-</div>
+          SKU: {selectedVariant?.sku || 'N/A'}
+        </div>
       </div>
       <Analytics.ProductView
         data={{
@@ -142,8 +146,8 @@ export default function Product() {
   );
 }
 
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
-  fragment ProductVariant on ProductVariant {
+const PRODUCT_PAGE_VARIANT_FRAGMENT = `#graphql
+  fragment ProductPageVariant on ProductVariant {
     availableForSale
     compareAtPrice {
       amount
@@ -194,7 +198,7 @@ const PRODUCT_FRAGMENT = `#graphql
       optionValues {
         name
         firstSelectableVariant {
-          ...ProductVariant
+          ...ProductPageVariant
         }
         swatch {
           color
@@ -207,17 +211,17 @@ const PRODUCT_FRAGMENT = `#graphql
       }
     }
     selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
-      ...ProductVariant
+      ...ProductPageVariant
     }
     adjacentVariants (selectedOptions: $selectedOptions) {
-      ...ProductVariant
+      ...ProductPageVariant
     }
     seo {
       description
       title
     }
   }
-  ${PRODUCT_VARIANT_FRAGMENT}
+  ${PRODUCT_PAGE_VARIANT_FRAGMENT}
 ` as const;
 
 const PRODUCT_QUERY = `#graphql
