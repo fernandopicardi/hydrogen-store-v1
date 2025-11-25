@@ -1,6 +1,6 @@
 // Testimonials section - customize colors via Tailwind classes
 // Card bg: bg-white, borders: border-gray-200, text: text-gray-900/700/600
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { SectionHeader } from './SectionHeader';
 
 interface Testimonial {
@@ -16,32 +16,42 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [shouldCenter, setShouldCenter] = useState(false);
+  const [showArrows, setShowArrows] = useState(true);
 
   useEffect(() => {
-    const centerFirstCard = () => {
+    const checkAndCenter = () => {
       if (scrollContainerRef.current) {
         const container = scrollContainerRef.current;
         const containerWidth = container.clientWidth;
-        const cardWidth = 320; // w-80 = 320px
+        const scrollWidth = container.scrollWidth;
         
-        // Calcular scroll para centralizar o primeiro card
-        // O spacer tem width: calc((100% - 320px) / 2), então precisamos scrollar essa quantidade
-        const spacerWidth = (containerWidth - cardWidth) / 2;
-        container.scrollLeft = spacerWidth;
+        // Se o conteúdo total cabe no container, centralizar com flexbox
+        if (scrollWidth <= containerWidth) {
+          setShouldCenter(true);
+          setShowArrows(false);
+        } else {
+          setShouldCenter(false);
+          setShowArrows(true);
+          // Se não cabe, centralizar o primeiro card com scroll
+          const cardWidth = 320; // w-80 = 320px
+          const spacerWidth = (containerWidth - cardWidth) / 2;
+          container.scrollLeft = spacerWidth;
+        }
       }
     };
 
     // Aguardar renderização
     requestAnimationFrame(() => {
-      setTimeout(centerFirstCard, 50);
-      // Também centralizar após resize
-      window.addEventListener('resize', centerFirstCard);
+      setTimeout(checkAndCenter, 50);
+      // Também verificar após resize
+      window.addEventListener('resize', checkAndCenter);
     });
 
     return () => {
-      window.removeEventListener('resize', centerFirstCard);
+      window.removeEventListener('resize', checkAndCenter);
     };
-  }, []);
+  }, [testimonials]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -62,44 +72,52 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
       />
       
       <div className="relative">
-        {/* Left Arrow */}
-        <button
-          onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-gray-200 hover:bg-gray-50 text-gray-700 p-3 rounded-full transition-all duration-200 shadow-lg"
-          aria-label="Scroll left"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+        {/* Left Arrow - apenas quando há scroll */}
+        {showArrows && (
+          <button
+            onClick={() => scroll('left')}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-gray-200 hover:bg-gray-50 text-gray-700 p-3 rounded-full transition-all duration-200 shadow-lg"
+            aria-label="Scroll left"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+        )}
 
-        {/* Right Arrow */}
-        <button
-          onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-gray-200 hover:bg-gray-50 text-gray-700 p-3 rounded-full transition-all duration-200 shadow-lg"
-          aria-label="Scroll right"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+        {/* Right Arrow - apenas quando há scroll */}
+        {showArrows && (
+          <button
+            onClick={() => scroll('right')}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-gray-200 hover:bg-gray-50 text-gray-700 p-3 rounded-full transition-all duration-200 shadow-lg"
+            aria-label="Scroll right"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        )}
 
         {/* Horizontal Slider */}
         <div
           ref={scrollContainerRef}
-          className="overflow-x-auto scrollbar-hide flex gap-6 pb-4"
+          className={`overflow-x-auto scrollbar-hide flex gap-6 pb-4 ${
+            shouldCenter ? 'justify-center' : ''
+          }`}
           style={{ 
-            scrollSnapType: 'x mandatory',
+            scrollSnapType: shouldCenter ? 'none' : 'x mandatory',
           }}
         >
-          {/* Spacer para centralizar o primeiro card */}
-          <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          {/* Spacer para centralizar o primeiro card (apenas quando não está centralizado) */}
+          {!shouldCenter && (
+            <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          )}
           
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
               className="flex-shrink-0 w-80 bg-white border border-gray-200 rounded-xl p-6 hover:shadow-xl hover:shadow-purple-100 transition-all duration-300"
-              style={{ scrollSnapAlign: 'center' }}
+              style={{ scrollSnapAlign: shouldCenter ? 'none' : 'center' }}
             >
               {testimonial.rating && (
                 <div className="flex mb-4 text-yellow-400">
@@ -122,8 +140,10 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
             </div>
           ))}
           
-          {/* Spacer para centralizar o último card */}
-          <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          {/* Spacer para centralizar o último card (apenas quando não está centralizado) */}
+          {!shouldCenter && (
+            <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          )}
         </div>
       </div>
     </div>

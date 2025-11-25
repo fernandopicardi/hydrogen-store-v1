@@ -50,32 +50,39 @@ interface FeaturedProductsSectionProps {
 export function FeaturedProductsSection({ products }: FeaturedProductsSectionProps) {
   const { open } = useAside();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [shouldCenter, setShouldCenter] = useState(false);
 
   useEffect(() => {
-    const centerFirstCard = () => {
+    const checkAndCenter = () => {
       if (scrollContainerRef.current) {
         const container = scrollContainerRef.current;
         const containerWidth = container.clientWidth;
-        const cardWidth = 320; // w-80 = 320px
+        const scrollWidth = container.scrollWidth;
         
-        // Calcular scroll para centralizar o primeiro card
-        // O spacer tem width: calc((100% - 320px) / 2), então precisamos scrollar essa quantidade
-        const spacerWidth = (containerWidth - cardWidth) / 2;
-        container.scrollLeft = spacerWidth;
+        // Se o conteúdo total cabe no container, centralizar com flexbox
+        if (scrollWidth <= containerWidth) {
+          setShouldCenter(true);
+        } else {
+          setShouldCenter(false);
+          // Se não cabe, centralizar o primeiro card com scroll
+          const cardWidth = 320; // w-80 = 320px
+          const spacerWidth = (containerWidth - cardWidth) / 2;
+          container.scrollLeft = spacerWidth;
+        }
       }
     };
 
     // Aguardar renderização
     requestAnimationFrame(() => {
-      setTimeout(centerFirstCard, 50);
-      // Também centralizar após resize
-      window.addEventListener('resize', centerFirstCard);
+      setTimeout(checkAndCenter, 50);
+      // Também verificar após resize
+      window.addEventListener('resize', checkAndCenter);
     });
 
     return () => {
-      window.removeEventListener('resize', centerFirstCard);
+      window.removeEventListener('resize', checkAndCenter);
     };
-  }, []);
+  }, [products.nodes]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-20">
@@ -89,13 +96,17 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
       <div className="relative">
         <div 
           ref={scrollContainerRef}
-          className="overflow-x-auto scrollbar-hide flex gap-6 pb-4"
+          className={`overflow-x-auto scrollbar-hide flex gap-6 pb-4 ${
+            shouldCenter ? 'justify-center' : ''
+          }`}
           style={{ 
-            scrollSnapType: 'x mandatory',
+            scrollSnapType: shouldCenter ? 'none' : 'x mandatory',
           }}
         >
-          {/* Spacer para centralizar o primeiro card */}
-          <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          {/* Spacer para centralizar o primeiro card (apenas quando não está centralizado) */}
+          {!shouldCenter && (
+            <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          )}
           
           {products.nodes.map((product) => (
             <ProductCard
@@ -105,8 +116,10 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
             />
           ))}
           
-          {/* Spacer para centralizar o último card */}
-          <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          {/* Spacer para centralizar o último card (apenas quando não está centralizado) */}
+          {!shouldCenter && (
+            <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          )}
         </div>
       </div>
     </div>
