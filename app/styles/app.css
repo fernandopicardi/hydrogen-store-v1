@@ -424,6 +424,32 @@ button.reset:hover:not(:has(> *)) {
   }
 }
 
+/* Ensure collection pages maintain their padding */
+main .collection,
+main .collections {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 640px) {
+  main .collection,
+  main .collections {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  main .collection,
+  main .collections {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
 .products-grid {
   display: grid;
   grid-gap: 1.5rem;
@@ -589,4 +615,35 @@ button.reset:hover:not(:has(> *)) {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+/*
+* --------------------------------------------------
+* routes/policies.$handle.tsx
+* --------------------------------------------------
+*/
+main .policy {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 640px) {
+  main .policy {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  main .policy {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
 }

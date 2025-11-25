@@ -45,7 +45,7 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
       )}
-      <main>{children}</main>
+      <main className="min-h-screen" style={{ padding: '0' }}>{children}</main>
       <Footer
         footer={footer}
         header={header}
