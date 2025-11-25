@@ -16,8 +16,29 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // O scroll inicial será 0 devido ao padding e transform aplicados
-    // Isso já centraliza o primeiro card
+    const centerFirstCard = () => {
+      if (scrollContainerRef.current) {
+        const container = scrollContainerRef.current;
+        const containerWidth = container.clientWidth;
+        const cardWidth = 320; // w-80 = 320px
+        
+        // Calcular scroll para centralizar o primeiro card
+        // O spacer tem width: calc((100% - 320px) / 2), então precisamos scrollar essa quantidade
+        const spacerWidth = (containerWidth - cardWidth) / 2;
+        container.scrollLeft = spacerWidth;
+      }
+    };
+
+    // Aguardar renderização
+    requestAnimationFrame(() => {
+      setTimeout(centerFirstCard, 50);
+      // Também centralizar após resize
+      window.addEventListener('resize', centerFirstCard);
+    });
+
+    return () => {
+      window.removeEventListener('resize', centerFirstCard);
+    };
   }, []);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -67,10 +88,11 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
           className="overflow-x-auto scrollbar-hide flex gap-6 pb-4"
           style={{ 
             scrollSnapType: 'x mandatory',
-            paddingLeft: 'calc((100% - 320px) / 2)',
-            paddingRight: 'calc((100% - 320px) / 2)',
           }}
         >
+          {/* Spacer para centralizar o primeiro card */}
+          <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+          
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
@@ -97,6 +119,9 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
               </div>
             </div>
           ))}
+          
+          {/* Spacer para centralizar o último card */}
+          <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
         </div>
       </div>
     </div>
