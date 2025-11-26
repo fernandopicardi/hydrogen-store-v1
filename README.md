@@ -155,6 +155,57 @@ npm run dev
 
 The development server will be available at `http://localhost:3000` (or another port if 3000 is occupied).
 
+## 🏗️ Scaffolding a New Project (For Professional Use)
+
+If you are starting a fresh project for a client or a different organization, follow these steps to detach this boilerplate from the original repository:
+
+1. **Clone to a new folder name:**
+
+   (Replace `my-client-store` with your project name)
+
+   ```bash
+   git clone https://github.com/fernandopicardi/hydrogen-store-v1.git my-client-store
+   cd my-client-store
+   ```
+
+2. **Remove the Git History (Critical Step):** This disconnects your project from the boilerplate history entirely.
+
+   **Windows (PowerShell):**
+
+   ```powershell
+   Remove-Item -Recurse -Force .git
+   ```
+
+   **Mac / Linux (Bash):**
+
+   ```bash
+   rm -rf .git
+   ```
+
+3. **Initialize a Clean Git:**
+
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit: Project setup from Hydrogen Professional Boilerplate"
+   ```
+
+4. **Connect to your Professional Repo:** Create a new empty repository on your professional GitHub account, then run:
+
+   ```bash
+   git remote add origin https://github.com/YOUR-PROFESSIONAL-ORG/new-repo.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+5. **Setup Environment:**
+
+   ```bash
+   cp .env.example .env
+   npm install
+   npm run dev
+   ```
+
 ## 🔧 Como Funciona a Integração
 
 O Shopify CLI gerencia automaticamente todas as variáveis de ambiente necessárias para conectar sua aplicação com a loja Shopify:
