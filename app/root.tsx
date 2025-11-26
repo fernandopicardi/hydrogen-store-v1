@@ -99,13 +99,15 @@ export async function loader(args: Route.LoaderArgs) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
 async function loadCriticalData({context}: Route.LoaderArgs) {
-  const {storefront} = context;
+  const {storefront, env} = context;
+
+  const headerMenuHandle = env.PUBLIC_HEADER_MENU_HANDLE || 'main-menu';
 
   const [header] = await Promise.all([
     storefront.query(HEADER_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
-        headerMenuHandle: 'main-menu', // Adjust to your header menu handle
+        headerMenuHandle,
       },
     }),
     // Add other queries here, so that they are loaded in parallel
@@ -120,14 +122,16 @@ async function loadCriticalData({context}: Route.LoaderArgs) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
 function loadDeferredData({context}: Route.LoaderArgs) {
-  const {storefront, customerAccount, cart} = context;
+  const {storefront, customerAccount, cart, env} = context;
+
+  const footerMenuHandle = env.PUBLIC_FOOTER_MENU_HANDLE || 'footer';
 
   // defer the footer query (below the fold)
   const footer = storefront
     .query(FOOTER_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
-        footerMenuHandle: 'footer', // Adjust to your footer menu handle
+        footerMenuHandle,
       },
     })
     .catch((error: Error) => {

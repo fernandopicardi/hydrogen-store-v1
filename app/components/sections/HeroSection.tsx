@@ -12,7 +12,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ shop, onShopNowClick }: HeroSectionProps) {
   return (
-    <div className="relative min-h-[600px] lg:min-h-[700px] overflow-hidden">
+    <div className="relative min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[700px] overflow-hidden">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -30,17 +30,17 @@ export function HeroSection({ shop, onShopNowClick }: HeroSectionProps) {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 h-full min-h-[600px] lg:min-h-[700px] flex items-center">
-        <div className="flex flex-col gap-6 max-w-2xl">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 h-full min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[700px] flex items-center">
+        <div className="flex flex-col gap-4 sm:gap-6 max-w-2xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
             {shop.name}
           </h1>
-          <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed">
             {shop.description || "Welcome to our custom Hydrogen Store."}
           </p>
           <button
             onClick={onShopNowClick}
-            className="mt-4 w-fit px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg uppercase tracking-wider rounded-lg hover:from-purple-600 hover:to-pink-600 hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
+            className="mt-2 sm:mt-4 w-fit px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-sm sm:text-base lg:text-lg uppercase tracking-wider rounded-lg hover:from-purple-600 hover:to-pink-600 hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
           >
             SHOP NOW
           </button>

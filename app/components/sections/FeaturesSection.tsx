@@ -39,14 +39,14 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
       <SectionHeader
         title="Features &"
         titleHighlight="Benefits"
         subtitle="Everything you need for the best shopping experience"
       />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {features.map((feature, index) => (
           <FeatureCard key={index} feature={feature} index={index} />
         ))}
@@ -60,7 +60,7 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
 
   return (
     <div
-      className="group relative bg-white border border-gray-200 rounded-xl p-6 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-purple-100 cursor-pointer"
+      className="group relative bg-white border border-gray-200 rounded-xl p-4 sm:p-6 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-purple-100 cursor-pointer"
       style={{
         animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
       }}
@@ -87,7 +87,7 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
       <div className="relative z-10">
         {feature.icon && (
           <div 
-            className={`text-4xl mb-4 text-purple-600 transition-all duration-500 origin-center ${
+            className={`text-3xl sm:text-4xl mb-3 sm:mb-4 text-purple-600 transition-all duration-500 origin-center ${
               isHovered 
                 ? 'scale-125 rotate-12 text-pink-600' 
                 : 'scale-100 rotate-0'
@@ -100,14 +100,14 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
           </div>
         )}
         <h3 
-          className={`text-xl font-bold mb-3 transition-colors duration-300 ${
+          className={`text-lg sm:text-xl font-bold mb-2 sm:mb-3 transition-colors duration-300 ${
             isHovered ? 'text-purple-600' : 'text-gray-900'
           }`}
         >
           {feature.title}
         </h3>
         <p 
-          className={`leading-relaxed transition-colors duration-300 ${
+          className={`text-sm sm:text-base leading-relaxed transition-colors duration-300 ${
             isHovered ? 'text-gray-600' : 'text-gray-700'
           }`}
         >

@@ -1,0 +1,7 @@
+# Set default behavior to automatically normalize line endings
+* text=auto eol=lf
+
+# Force LF line endings for all text files
+# This ensures consistent line endings across Windows, Mac, and Linux
+# preventing Git conflicts and ensuring proper deployment on Linux servers
+

@@ -18,6 +18,9 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [shouldCenter, setShouldCenter] = useState(false);
   const [showArrows, setShowArrows] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   useEffect(() => {
     const checkAndCenter = () => {
@@ -34,7 +37,8 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
           setShouldCenter(false);
           setShowArrows(true);
           // Se não cabe, centralizar o primeiro card com scroll
-          const cardWidth = 320; // w-80 = 320px
+          // Card width: 280px em mobile (w-[280px]), 320px em sm e acima (w-80)
+          const cardWidth = containerWidth < 640 ? 280 : 320;
           const spacerWidth = (containerWidth - cardWidth) / 2;
           container.scrollLeft = spacerWidth;
         }
@@ -63,8 +67,57 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
     }
   };
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+    scrollContainerRef.current.style.cursor = 'grabbing';
+    scrollContainerRef.current.style.userSelect = 'none';
+  };
+
+  const handleMouseLeave = () => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(false);
+    scrollContainerRef.current.style.cursor = 'grab';
+    scrollContainerRef.current.style.userSelect = 'auto';
+  };
+
+  const handleMouseUp = () => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(false);
+    scrollContainerRef.current.style.cursor = 'grab';
+    scrollContainerRef.current.style.userSelect = 'auto';
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    const x = e.touches[0].pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
       <SectionHeader
         title="What Our"
         titleHighlight="Customers Say"
@@ -99,28 +152,38 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
         )}
 
         {/* Horizontal Slider */}
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
         <div
           ref={scrollContainerRef}
-          className={`overflow-x-auto scrollbar-hide flex gap-6 pb-4 ${
+          role="group"
+          aria-label="Testimonials carousel"
+          className={`overflow-x-auto scrollbar-hide flex gap-6 pb-4 cursor-grab active:cursor-grabbing ${
             shouldCenter ? 'justify-center' : ''
           }`}
           style={{ 
             scrollSnapType: shouldCenter ? 'none' : 'x mandatory',
           }}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {/* Spacer para centralizar o primeiro card (apenas quando não está centralizado) */}
           {!shouldCenter && (
-            <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+            <div className="shrink-0 hidden sm:block" style={{ width: 'calc((100% - 320px) / 2)' }} />
           )}
           
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-80 bg-white border border-gray-200 rounded-xl p-6 hover:shadow-xl hover:shadow-purple-100 transition-all duration-300"
+              className="shrink-0 w-[280px] sm:w-80 bg-white border border-gray-200 rounded-xl p-4 sm:p-6 hover:shadow-xl hover:shadow-purple-100 transition-all duration-300"
               style={{ scrollSnapAlign: shouldCenter ? 'none' : 'center' }}
             >
               {testimonial.rating && (
-                <div className="flex mb-4 text-yellow-400">
+                <div className="flex mb-3 sm:mb-4 text-yellow-400 text-sm sm:text-base">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <span key={i}>
                       {i < testimonial.rating! ? '★' : '☆'}
@@ -128,13 +191,13 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                   ))}
                 </div>
               )}
-              <p className="text-gray-700 leading-relaxed mb-4 italic">
+              <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3 sm:mb-4 italic">
                 "{testimonial.content}"
               </p>
-              <div className="border-t border-gray-200 pt-4">
-                <p className="text-gray-900 font-bold">{testimonial.name}</p>
+              <div className="border-t border-gray-200 pt-3 sm:pt-4">
+                <p className="text-gray-900 font-bold text-sm sm:text-base">{testimonial.name}</p>
                 {testimonial.role && (
-                  <p className="text-gray-600 text-sm">{testimonial.role}</p>
+                  <p className="text-gray-600 text-xs sm:text-sm">{testimonial.role}</p>
                 )}
               </div>
             </div>
@@ -142,7 +205,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
           
           {/* Spacer para centralizar o último card (apenas quando não está centralizado) */}
           {!shouldCenter && (
-            <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+            <div className="shrink-0 hidden sm:block" style={{ width: 'calc((100% - 320px) / 2)' }} />
           )}
         </div>
       </div>

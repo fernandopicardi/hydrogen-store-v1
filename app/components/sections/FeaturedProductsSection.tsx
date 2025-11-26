@@ -51,6 +51,9 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
   const { open } = useAside();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [shouldCenter, setShouldCenter] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   useEffect(() => {
     const checkAndCenter = () => {
@@ -65,7 +68,8 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
         } else {
           setShouldCenter(false);
           // Se não cabe, centralizar o primeiro card com scroll
-          const cardWidth = 320; // w-80 = 320px
+          // Card width: 280px em mobile (w-[280px]), 320px em sm e acima (w-80)
+          const cardWidth = containerWidth < 640 ? 280 : 320;
           const spacerWidth = (containerWidth - cardWidth) / 2;
           container.scrollLeft = spacerWidth;
         }
@@ -84,8 +88,57 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
     };
   }, [products.nodes]);
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+    scrollContainerRef.current.style.cursor = 'grabbing';
+    scrollContainerRef.current.style.userSelect = 'none';
+  };
+
+  const handleMouseLeave = () => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(false);
+    scrollContainerRef.current.style.cursor = 'grab';
+    scrollContainerRef.current.style.userSelect = 'auto';
+  };
+
+  const handleMouseUp = () => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(false);
+    scrollContainerRef.current.style.cursor = 'grab';
+    scrollContainerRef.current.style.userSelect = 'auto';
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    const x = e.touches[0].pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
       <SectionHeader
         title="Our"
         titleHighlight="Products"
@@ -94,18 +147,28 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
       
       {/* Horizontal Slider */}
       <div className="relative">
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
         <div 
           ref={scrollContainerRef}
-          className={`overflow-x-auto scrollbar-hide flex gap-6 pb-4 ${
+          role="group"
+          aria-label="Featured products carousel"
+          className={`overflow-x-auto scrollbar-hide flex gap-6 pb-4 cursor-grab active:cursor-grabbing ${
             shouldCenter ? 'justify-center' : ''
           }`}
           style={{ 
             scrollSnapType: shouldCenter ? 'none' : 'x mandatory',
           }}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {/* Spacer para centralizar o primeiro card (apenas quando não está centralizado) */}
           {!shouldCenter && (
-            <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+            <div className="shrink-0 hidden sm:block" style={{ width: 'calc((100% - 320px) / 2)' }} />
           )}
           
           {products.nodes.map((product) => (
@@ -118,7 +181,7 @@ export function FeaturedProductsSection({ products }: FeaturedProductsSectionPro
           
           {/* Spacer para centralizar o último card (apenas quando não está centralizado) */}
           {!shouldCenter && (
-            <div className="flex-shrink-0" style={{ width: 'calc((100% - 320px) / 2)' }} />
+            <div className="shrink-0 hidden sm:block" style={{ width: 'calc((100% - 320px) / 2)' }} />
           )}
         </div>
       </div>
@@ -138,7 +201,7 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
 
   return (
     <div
-      className="flex-shrink-0 w-80 bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-purple-100 transition-all duration-300"
+      className="shrink-0 w-[280px] sm:w-80 bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-purple-100 transition-all duration-300"
       style={{ scrollSnapAlign: 'center' }}
     >
       <Link to={`/products/${product.handle}`} className="block">
@@ -153,21 +216,21 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
         </div>
       </Link>
       
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         <Link to={`/products/${product.handle}`}>
-          <h3 className="text-xl text-gray-900 font-bold mb-2 hover:text-purple-600 transition-colors duration-300">
+          <h3 className="text-lg sm:text-xl text-gray-900 font-bold mb-2 hover:text-purple-600 transition-colors duration-300">
             {product.title}
           </h3>
         </Link>
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">{product.description}</p>
+        <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-2">{product.description}</p>
         
-        <div className="text-purple-600 font-mono text-lg mb-4">
+        <div className="text-purple-600 font-mono text-base sm:text-lg mb-3 sm:mb-4">
           {variant.price.currencyCode} {variant.price.amount}
         </div>
 
         {/* Quantity Selector */}
-        <div className="flex items-center gap-3 mb-4">
-          <span className="text-gray-700 text-sm">Quantity:</span>
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <span className="text-gray-700 text-xs sm:text-sm">Quantity:</span>
           <div className="flex items-center gap-2 border border-gray-300 rounded-lg">
             <button
               type="button"
@@ -193,7 +256,7 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
 
         {/* Add to Cart Button */}
         <AddToCartButton
-          className="w-full py-3 font-bold uppercase tracking-wide text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg"
+          className="w-full py-2.5 sm:py-3 text-sm sm:text-base font-bold uppercase tracking-wide text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg"
           disabled={!variant.availableForSale}
           onClick={onAddToCart}
           lines={[

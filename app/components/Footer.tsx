@@ -33,7 +33,7 @@ export function Footer({
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                 {/* Logo Section with Newsletter */}
-                <div className="lg:col-span-1 flex flex-col">
+                <div className="md:col-span-1 lg:col-span-1 flex flex-col">
                   <NavLink
                     prefetch="intent"
                     to="/"
@@ -60,29 +60,32 @@ export function Footer({
                   </div>
                 </div>
 
-                {/* Quick Links Section */}
-                <div className="lg:col-span-1 flex flex-col items-center">
-                  <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 text-center">
-                    Quick Links
-                  </h3>
-                  <div className="w-2/4 flex justify-start">
-                    <QuickLinksMenu
-                      menu={header.menu}
-                      primaryDomainUrl={header.shop.primaryDomain.url}
-                      publicStoreDomain={publicStoreDomain}
-                    />
+                {/* Quick Links and Follow Us - lado a lado em tablet/mobile */}
+                <div className="md:col-span-2 lg:col-span-2 flex flex-col sm:flex-row gap-8">
+                  {/* Quick Links Section */}
+                  <div className="flex-1 flex flex-col items-start">
+                    <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 text-left">
+                      Quick Links
+                    </h3>
+                    <div className="w-full flex justify-start">
+                      <QuickLinksMenu
+                        menu={header.menu}
+                        primaryDomainUrl={header.shop.primaryDomain.url}
+                        publicStoreDomain={publicStoreDomain}
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                {/* Social Media Section */}
-                <div className="lg:col-span-1">
-                  <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
-                    Follow Us
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Connect with us on social media.
-                  </p>
-                  <SocialMediaIcons />
+                  
+                  {/* Social Media Section */}
+                  <div className="flex-1 flex flex-col items-start">
+                    <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 text-left">
+                      Follow Us
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4 text-left">
+                      Connect with us on social media.
+                    </p>
+                    <SocialMediaIcons />
+                  </div>
                 </div>
 
               </div>
@@ -137,21 +140,21 @@ function NewsletterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
-      <div className="flex gap-2">
+    <form onSubmit={handleSubmit} className="space-y-3 w-full max-w-full min-w-0">
+      <div className="flex flex-col sm:flex-row gap-2 w-full max-w-full min-w-0">
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           required
-          className="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+          className="flex-1 min-w-0 w-fit px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900 placeholder-gray-400"
           aria-label="Email address for newsletter"
         />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="px-6 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-fit sm:w-auto sm:shrink-0 px-6 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
         >
           {status === 'loading' ? '...' : status === 'success' ? '✓' : 'Subscribe'}
         </button>

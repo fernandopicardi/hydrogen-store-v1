@@ -42,7 +42,7 @@ export function Header({
               {shop.name}
             </NavLink>
 
-            {/* Desktop Menu */}
+            {/* Desktop Menu - apenas em lg e acima */}
             <HeaderMenu
               menu={menu}
               viewport="desktop"
@@ -50,7 +50,7 @@ export function Header({
               publicStoreDomain={publicStoreDomain}
             />
 
-            {/* CTAs */}
+            {/* CTAs - pesquisa e carrinho sempre visíveis */}
             <HeaderCtas
               isLoggedIn={isLoggedIn}
               cart={cart}
@@ -71,11 +71,13 @@ export function HeaderMenu({
   primaryDomainUrl,
   viewport,
   publicStoreDomain,
+  isLoggedIn,
 }: {
   menu: HeaderProps['header']['menu'];
   primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
   viewport: Viewport;
   publicStoreDomain: HeaderProps['publicStoreDomain'];
+  isLoggedIn?: Promise<boolean>;
 }) {
   const {close} = useAside();
 
@@ -115,12 +117,27 @@ export function HeaderMenu({
             </NavLink>
           );
         })}
+        {/* Sign in / Account link no menu mobile */}
+        {isLoggedIn && (
+          <NavLink
+            prefetch="intent"
+            to="/account"
+            onClick={close}
+            className="text-gray-700 hover:text-purple-600 font-medium transition-colors no-underline px-3 py-2 rounded-md hover:bg-gray-50"
+          >
+            <Suspense fallback="Sign in">
+              <Await resolve={isLoggedIn} errorElement="Sign in">
+                {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
+              </Await>
+            </Suspense>
+          </NavLink>
+        )}
       </nav>
     );
   }
 
   return (
-    <nav className="hidden md:flex items-center gap-1" role="navigation">
+    <nav className="hidden lg:flex items-center gap-1" role="navigation">
       {menuItems.map((item) => {
         if (!item.url) return null;
 
@@ -161,11 +178,11 @@ function HeaderCtas({
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'> & {onSearchClick: () => void}) {
   return (
     <nav className="flex items-center gap-4" role="navigation">
-      <HeaderMenuMobileToggle />
+      {/* Sign in - apenas visível em desktop (lg e acima) */}
       <NavLink
         prefetch="intent"
         to="/account"
-        className="text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors no-underline px-3 py-2 rounded-md hover:bg-gray-50"
+        className="hidden lg:block text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors no-underline px-3 py-2 rounded-md hover:bg-gray-50"
       >
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
@@ -175,6 +192,8 @@ function HeaderCtas({
       </NavLink>
       <SearchToggle onSearchClick={onSearchClick} />
       <CartToggle cart={cart} />
+      {/* Hamburger - último item, apenas visível em tablet e mobile */}
+      <HeaderMenuMobileToggle />
     </nav>
   );
 }
@@ -183,7 +202,7 @@ function HeaderMenuMobileToggle() {
   const {open} = useAside();
   return (
     <button
-      className="md:hidden p-2 text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500"
+      className="lg:hidden p-2 text-gray-700 hover:text-purple-600 hover:bg-gray-50 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500"
       onClick={() => open('mobile')}
       aria-label="Open menu"
     >
