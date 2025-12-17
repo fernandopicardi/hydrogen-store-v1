@@ -1,72 +1,78 @@
-# Template Base Hydrogen Store
+# Hydrogen Store Template
 
-Este repositório serve como uma **base completa e reutilizável** para criar lojas personalizadas utilizando o [Shopify Hydrogen](https://shopify.dev/custom-storefronts/hydrogen) com React Router 7. Ele inclui todas as configurações, páginas, seções e componentes necessários para iniciar rapidamente o desenvolvimento de sua loja.
+This repository serves as a **complete and reusable base** for creating custom stores using [Shopify Hydrogen](https://shopify.dev/custom-storefronts/hydrogen) with React Router 7. It includes all the configurations, pages, sections, and components needed to quickly start developing your store.
 
-## 🎯 O que está incluído
+> 🚀 **New here?** Start with the [Getting Started Guide](./GETTING-STARTED.md) for step-by-step setup instructions.
 
-### Componentes
-- **Header** - Cabeçalho com menu de navegação e busca
-- **Footer** - Rodapé com links e informações
-- **Cart** - Sistema completo de carrinho de compras
-  - `CartMain` - Visualização principal do carrinho
-  - `CartLineItem` - Item individual do carrinho
-  - `CartSummary` - Resumo e total do carrinho
-  - `CartSubscriptionPromo` - Promoções de assinatura
-- **Product** - Componentes de produto
-  - `ProductItem` - Card de produto
-  - `ProductImage` - Imagem do produto
-  - `ProductPrice` - Preço do produto
-  - `ProductForm` - Formulário de seleção de variantes
-  - `AddToCartButton` - Botão de adicionar ao carrinho
-- **Search** - Sistema de busca completo
-  - `SearchForm` - Formulário de busca
-  - `SearchFormPredictive` - Busca preditiva
-  - `SearchPopup` - Popup de busca
-  - `SearchResults` - Resultados de busca
-  - `SearchResultsPredictive` - Resultados preditivos
-- **Aside** - Painel lateral para busca, carrinho e menu mobile
-- **PageLayout** - Layout base das páginas
-- **PaginatedResourceSection** - Seção com paginação
+## 🎯 What's Included
 
-### Sections (Seções da Homepage)
-- **HeroSection** - Seção hero/banner principal
-- **FeaturesSection** - Seção de características/destaques
-- **FeaturedProductsSection** - Seção de produtos em destaque
-- **CTASection** - Seção de call-to-action
-- **TestimonialsSection** - Seção de depoimentos
-- **FAQSection** - Seção de perguntas frequentes
-- **SectionHeader** - Cabeçalho reutilizável para seções
+### Components
 
-### Rotas Completas
-- **Produtos**: Visualização individual de produtos (`/products/$handle`)
-- **Coleções**: Listagem e visualização de coleções (`/collections`)
-- **Carrinho**: Gerenciamento completo do carrinho (`/cart`)
-- **Conta do Cliente**: Área completa do cliente (`/account`)
-  - Perfil, endereços, pedidos, autorização
-- **Blogs**: Sistema de blog completo (`/blogs`)
-  - Listagem de blogs, artigos individuais
-- **Páginas**: Páginas estáticas (`/pages/$handle`)
-- **Políticas**: Páginas de políticas (`/policies`)
-- **Busca**: Página de resultados de busca (`/search`)
-- **Descontos**: Aplicação de códigos de desconto (`/discount/$code`)
-- **Sitemap**: Geração automática de sitemap
-- **Robots.txt**: Configuração de robots
+- **Header** - Header with navigation menu and search
+- **Footer** - Footer with links and information
+- **Cart** - Complete shopping cart system
+  - `CartMain` - Main cart view
+  - `CartLineItem` - Individual cart item
+  - `CartSummary` - Cart summary and total
+  - `CartSubscriptionPromo` - Subscription promotions
+- **Product** - Product components
+  - `ProductItem` - Product card
+  - `ProductImage` - Product image
+  - `ProductPrice` - Product price
+  - `ProductForm` - Variant selection form
+  - `AddToCartButton` - Add to cart button
+- **Search** - Complete search system
+  - `SearchForm` - Search form
+  - `SearchFormPredictive` - Predictive search
+  - `SearchPopup` - Search popup
+  - `SearchResults` - Search results
+  - `SearchResultsPredictive` - Predictive results
+- **Aside** - Side panel for search, cart, and mobile menu
+- **PageLayout** - Base page layout
+- **PaginatedResourceSection** - Section with pagination
 
-### Configurações e Tecnologias
-- **React Router 7.9.2** - Framework de roteamento
-- **Shopify Hydrogen 2025.7.0** - Stack de headless commerce
-- **Tailwind CSS 4.1.6** - Framework CSS utility-first
-- **TypeScript 5.9.2** - Tipagem estática
-- **GraphQL Codegen** - Geração automática de tipos GraphQL
-- **Vite 6.2.4** - Build tool moderna
-- **ESLint + Prettier** - Linting e formatação de código
-- **Shopify CLI** - Ferramentas de desenvolvimento
+### Sections (Homepage Sections)
 
-## 📋 Pré-requisitos
+- **HeroSection** - Hero/banner main section
+- **FeaturesSection** - Features/highlights section
+- **FeaturedProductsSection** - Featured products section
+- **CTASection** - Call-to-action section
+- **TestimonialsSection** - Testimonials section
+- **FAQSection** - Frequently asked questions section
+- **SectionHeader** - Reusable header for sections
 
-- **Node.js** versão 20.0.0 ou superior (see `engines` in `package.json`)
-- **npm** ou outro gerenciador de pacotes
-- **Conta Shopify** (apenas para Opção B - Connect to Your Store)
+### Complete Routes
+
+- **Products**: Individual product view (`/products/$handle`)
+- **Collections**: Collection listing and view (`/collections`)
+- **Cart**: Complete cart management (`/cart`)
+- **Customer Account**: Complete customer area (`/account`)
+  - Profile, addresses, orders, authorization
+- **Blogs**: Complete blog system (`/blogs`)
+  - Blog listing, individual articles
+- **Pages**: Static pages (`/pages/$handle`)
+- **Policies**: Policy pages (`/policies`)
+- **Search**: Search results page (`/search`)
+- **Discounts**: Discount code application (`/discount/$code`)
+- **Sitemap**: Automatic sitemap generation
+- **Robots.txt**: Robots configuration
+
+### Technologies and Configuration
+
+- **React Router 7.9.2** - Routing framework
+- **Shopify Hydrogen 2025.7.0** - Headless commerce stack
+- **Tailwind CSS 4.1.6** - Utility-first CSS framework
+- **TypeScript 5.9.2** - Static typing
+- **GraphQL Codegen** - Automatic GraphQL type generation
+- **Vite 6.2.4** - Modern build tool
+- **ESLint + Prettier** - Code linting and formatting
+- **Shopify CLI** - Development tools
+
+## 📋 Prerequisites
+
+- **Node.js** version 20.0.0 or higher (see `engines` in `package.json`)
+- **npm** or another package manager
+- **Shopify account** (only for Option B - Connect to Your Store)
 
 💡 **Windows Users:**
 
@@ -75,6 +81,39 @@ Este repositório serve como uma **base completa e reutilizável** para criar lo
 - Ensure your Node version matches the engine requirement in `package.json` (>=20.0.0).
 
 ## 🚀 Quick Start
+
+> **New to this project?** Start with [GETTING-STARTED.md](./GETTING-STARTED.md) for a complete step-by-step guide.
+
+### ⚡ One-Command Setup (Recommended)
+
+Run the complete setup script to automate everything except store linking:
+
+**Windows:**
+```powershell
+.\setup-complete.ps1
+```
+
+**Mac/Linux:**
+```bash
+chmod +x setup-complete.sh
+./setup-complete.sh
+```
+
+This will:
+- ✅ Install all dependencies
+- ✅ Create `.env` file
+- ✅ Generate secure SESSION_SECRET
+- ✅ Install MCP dependencies (optional)
+- ✅ Clean npm cache
+- ✅ Verify setup
+
+Then just link your store:
+```bash
+npx shopify hydrogen link
+npm run dev
+```
+
+### Manual Setup
 
 Choose one of the following setup paths based on your needs:
 
@@ -135,6 +174,7 @@ npx shopify hydrogen link
 ```
 
 This command will:
+
 - Prompt you to log in to your Shopify account
 - Allow you to select your store
 - Automatically create and configure the `.env` file with all required environment variables from your store
@@ -155,9 +195,55 @@ npm run dev
 
 The development server will be available at `http://localhost:3000` (or another port if 3000 is occupied).
 
-## 🏗️ Scaffolding a New Project (For Professional Use)
+## 🏗️ Reusing This Template for Multiple Stores
 
-If you are starting a fresh project for a client or a different organization, follow these steps to detach this boilerplate from the original repository:
+> **Quick setup?** Use the setup script: `.\setup-new-project.ps1 -ProjectName "client-store-name"` (Windows) or `./setup-new-project.sh client-store-name` (Mac/Linux)
+
+This template is designed to be **completely reusable** across multiple client projects. See [REUSING-THIS-TEMPLATE.md](./REUSING-THIS-TEMPLATE.md) for a complete guide.
+
+### Quick Setup for New Client
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone <repository-url> client-store-name
+   cd client-store-name
+   ```
+
+2. **Run the setup script:**
+
+   ```powershell
+   # Windows (PowerShell)
+   .\setup-new-project.ps1 -ProjectName "client-store-name"
+   
+   # Mac/Linux (Bash)
+   chmod +x setup-new-project.sh  # Make executable (first time only)
+   ./setup-new-project.sh client-store-name
+   ```
+
+3. **Configure for new store:**
+
+   ```bash
+   npx shopify hydrogen link
+   ```
+
+4. **Start development:**
+
+   ```bash
+   npm run dev
+   ```
+
+The setup script will:
+
+- ✅ Rename the project in `package.json`
+- ✅ Optionally remove Git history
+- ✅ Initialize a new Git repository
+- ✅ Create `.env` from `.env.example`
+- ✅ Guide you through the next steps
+
+### Manual Setup (Alternative)
+
+If you prefer to set up manually, follow these steps:
 
 1. **Clone to a new folder name:**
 
@@ -206,93 +292,94 @@ If you are starting a fresh project for a client or a different organization, fo
    npm run dev
    ```
 
-## 🔧 Como Funciona a Integração
+## 🔧 How Integration Works
 
-O Shopify CLI gerencia automaticamente todas as variáveis de ambiente necessárias para conectar sua aplicação com a loja Shopify:
+The Shopify CLI automatically manages all environment variables needed to connect your application with your Shopify store:
 
-- **Variáveis configuradas automaticamente pelo Shopify CLI**:
-  - `PUBLIC_STORE_DOMAIN` - Domínio da sua loja
-  - `PUBLIC_STOREFRONT_API_TOKEN` - Token público da Storefront API
-  - `PRIVATE_STOREFRONT_API_TOKEN` - Token privado da Storefront API
-  - `PUBLIC_STOREFRONT_ID` - ID da storefront
-  - `PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID` - Client ID para Customer Account API
-  - `PUBLIC_CUSTOMER_ACCOUNT_API_URL` - URL da Customer Account API
-  - `PUBLIC_CHECKOUT_DOMAIN` - Domínio do checkout
+- **Variables automatically configured by Shopify CLI**:
+  - `PUBLIC_STORE_DOMAIN` - Your store domain
+  - `PUBLIC_STOREFRONT_API_TOKEN` - Public Storefront API token
+  - `PRIVATE_STOREFRONT_API_TOKEN` - Private Storefront API token
+  - `PUBLIC_STOREFRONT_ID` - Storefront ID
+  - `PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID` - Client ID for Customer Account API
+  - `PUBLIC_CUSTOMER_ACCOUNT_API_URL` - Customer Account API URL
+  - `PUBLIC_CHECKOUT_DOMAIN` - Checkout domain
 
-**Importante sobre SESSION_SECRET**: 
-- O `SESSION_SECRET` é necessário **antes** de conectar com Shopify e deve estar no arquivo `.env`
-- Você deve copiar `.env.example` para `.env` após `npm install` (passo 3)
-- O valor padrão `"foobar"` funciona para desenvolvimento local
-- Para produção, gere uma string segura: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
-- O Shopify CLI **não** sobrescreve o `SESSION_SECRET` quando você executa `shopify hydrogen link` ou `shopify hydrogen env pull`
+**Important about SESSION_SECRET**:
 
-O arquivo `.env` é gerado/atualizado automaticamente pelo CLI e está no `.gitignore` para não ser versionado.
+- `SESSION_SECRET` is required **before** connecting to Shopify and must be in the `.env` file
+- You should copy `.env.example` to `.env` after `npm install` (step 3)
+- The default value `"foobar"` works for local development
+- For production, generate a secure string: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+- Shopify CLI **does not** overwrite `SESSION_SECRET` when you run `shopify hydrogen link` or `shopify hydrogen env pull`
 
-## 📁 Estrutura do Projeto
+The `.env` file is automatically generated/updated by the CLI and is in `.gitignore` to prevent versioning.
 
-```
+## 📁 Project Structure
+
+```text
 hydrogen-store-v1/
 ├── app/
-│   ├── assets/           # Imagens e assets estáticos
-│   ├── components/       # Componentes React reutilizáveis
-│   │   └── sections/     # Seções da homepage
-│   ├── graphql/         # Queries e fragments GraphQL
-│   ├── hooks/           # Custom hooks React
-│   ├── lib/             # Utilitários e helpers
-│   ├── routes/          # Rotas da aplicação (file-based routing)
-│   ├── styles/          # Estilos CSS e Tailwind
-│   ├── entry.client.tsx # Entry point do cliente
-│   ├── entry.server.tsx # Entry point do servidor
-│   └── root.tsx         # Componente raiz da aplicação
-├── public/              # Arquivos públicos estáticos
-├── server.ts            # Handler do servidor (Oxygen)
-├── react-router.config.ts # Configuração do React Router
-├── vite.config.ts       # Configuração do Vite
-├── package.json         # Dependências e scripts
-└── tsconfig.json        # Configuração do TypeScript
+│   ├── assets/           # Images and static assets
+│   ├── components/       # Reusable React components
+│   │   └── sections/     # Homepage sections
+│   ├── graphql/         # GraphQL queries and fragments
+│   ├── hooks/           # Custom React hooks
+│   ├── lib/             # Utilities and helpers
+│   ├── routes/          # Application routes (file-based routing)
+│   ├── styles/          # CSS and Tailwind styles
+│   ├── entry.client.tsx # Client entry point
+│   ├── entry.server.tsx # Server entry point
+│   └── root.tsx         # Root application component
+├── public/              # Public static files
+├── server.ts            # Server handler (Oxygen)
+├── react-router.config.ts # React Router configuration
+├── vite.config.ts       # Vite configuration
+├── package.json         # Dependencies and scripts
+└── tsconfig.json        # TypeScript configuration
 ```
 
-## 📜 Scripts Disponíveis
+## 📜 Available Scripts
 
-### Desenvolvimento
+### Development
 
 ```bash
 npm run dev
 ```
 
-Inicia o servidor de desenvolvimento com hot-reload. O Shopify CLI gerencia automaticamente as variáveis de ambiente e a conexão com a loja.
+Starts the development server with hot-reload. Shopify CLI automatically manages environment variables and store connection.
 
-### Build para Produção
+### Production Build
 
 ```bash
 npm run build
 ```
 
-Cria um build otimizado para produção e executa o codegen do GraphQL para gerar os tipos TypeScript.
+Creates an optimized production build and runs GraphQL codegen to generate TypeScript types.
 
-### Preview do Build
+### Build Preview
 
 ```bash
 npm run preview
 ```
 
-Executa um preview do build de produção localmente.
+Runs a preview of the production build locally.
 
-### Verificação de Código
+### Code Verification
 
 ```bash
 npm run lint
 ```
 
-Executa o ESLint para verificar problemas no código.
+Runs ESLint to check for code issues.
 
-### Verificação de Tipos
+### Type Checking
 
 ```bash
 npm run typecheck
 ```
 
-Verifica os tipos TypeScript e gera os tipos do React Router.
+Verifies TypeScript types and generates React Router types.
 
 ### Codegen
 
@@ -300,38 +387,38 @@ Verifica os tipos TypeScript e gera os tipos do React Router.
 npm run codegen
 ```
 
-Gera os tipos TypeScript a partir dos schemas GraphQL do Shopify (Storefront API e Customer Account API).
+Generates TypeScript types from Shopify GraphQL schemas (Storefront API and Customer Account API).
 
-## 🎨 Próximos Passos
+## 🎨 Next Steps
 
-Agora que você tem o projeto configurado, você pode:
+Now that you have the project configured, you can:
 
-1. **Personalizar Componentes e Sections**
-   - Edite os componentes em `app/components/`
-   - Customize as sections da homepage em `app/components/sections/`
-   - Ajuste estilos usando Tailwind CSS
+1. **Customize Components and Sections**
+   - Edit components in `app/components/`
+   - Customize homepage sections in `app/components/sections/`
+   - Adjust styles using Tailwind CSS
 
-2. **Adicionar Conteúdo na Loja Shopify**
-   - Acesse o Shopify Admin
-   - Adicione produtos, coleções e conteúdo
-   - Configure menus de navegação (header e footer)
+2. **Add Content to Shopify Store**
+   - Access Shopify Admin
+   - Add products, collections, and content
+   - Configure navigation menus (header and footer)
 
-3. **Customizar Estilos e Temas**
-   - Modifique `app/styles/app.css` para estilos globais
-   - Use classes Tailwind CSS nos componentes
-   - Configure o tema no `tailwind.config` se necessário
+3. **Customize Styles and Themes**
+   - Modify `app/styles/app.css` for global styles
+   - Use Tailwind CSS classes in components
+   - Configure theme in `tailwind.config` if needed
 
-4. **Adicionar Novas Rotas**
-   - Crie novos arquivos em `app/routes/` seguindo o padrão file-based routing
-   - O React Router detecta automaticamente novas rotas
+4. **Add New Routes**
+   - Create new files in `app/routes/` following the file-based routing pattern
+   - React Router automatically detects new routes
 
-5. **Configurar Menus no Shopify Admin**
-   - Crie menus com handles `main-menu` (header) e `footer` (footer)
-   - Os componentes Header e Footer já estão configurados para usar esses menus
+5. **Configure Menus in Shopify Admin**
+   - Create menus with handles `main-menu` (header) and `footer` (footer)
+   - Header and Footer components are already configured to use these menus
 
-6. **Personalizar i18n**
-   - Ajuste a lógica de localização em `app/lib/i18n.ts`
-   - Configure suporte para múltiplos idiomas e países
+6. **Customize i18n**
+   - Adjust localization logic in `app/lib/i18n.ts`
+   - Configure support for multiple languages and countries
 
 ## 📚 Recursos e Documentação
 
@@ -343,32 +430,39 @@ Agora que você tem o projeto configurado, você pode:
 - [Shopify Customer Account API](https://shopify.dev/docs/api/customer-account)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
-### Guias do Projeto
+### Project Guides
 
-- `guides/predictiveSearch/` - Guia de busca preditiva
-- `guides/search/` - Guia de implementação de busca
+- [GETTING-STARTED.md](./GETTING-STARTED.md) - Complete setup guide for new users
+- [REUSING-THIS-TEMPLATE.md](./REUSING-THIS-TEMPLATE.md) - Guide for reusing this template for multiple stores
+- [MCP-SETUP.md](./MCP-SETUP.md) - MCP (Shopify & Figma) configuration guide
+- [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) - Troubleshooting guide
+- [SETUP-STOREFRONT-API.md](./SETUP-STOREFRONT-API.md) - Storefront API setup
+- [MCP-TROUBLESHOOTING.md](./MCP-TROUBLESHOOTING.md) - MCP troubleshooting
+- `guides/predictiveSearch/` - Predictive search guide
+- `guides/search/` - Search implementation guide
 
-### Suporte
+### Support
 
-Para dúvidas sobre o Shopify Hydrogen, consulte:
+For questions about Shopify Hydrogen, consult:
+
 - [Shopify Community](https://community.shopify.com/)
 - [Hydrogen GitHub](https://github.com/Shopify/hydrogen)
 
-## 🔒 Segurança
+## 🔒 Security
 
-- O arquivo `.env` contém credenciais sensíveis e está no `.gitignore`
-- Nunca commite o arquivo `.env` no repositório
-- O diretório `.shopify` também está ignorado e contém configurações do CLI
+- The `.env` file contains sensitive credentials and is in `.gitignore`
+- Never commit the `.env` file to the repository
+- The `.shopify` directory is also ignored and contains CLI configurations
 
-## 📝 Notas Importantes
+## 📝 Important Notes
 
-- Este template usa **React Router 7**, não Remix. Todos os imports devem vir de `react-router`, não de `@remix-run/react`
-- O projeto está configurado para deploy no **Shopify Oxygen**
-- As variáveis de ambiente são gerenciadas automaticamente pelo Shopify CLI
-- O GraphQL Codegen gera tipos TypeScript automaticamente a partir dos schemas do Shopify
+- This template uses **React Router 7**, not Remix. All imports should come from `react-router`, not `@remix-run/react`
+- The project is configured for deployment on **Shopify Oxygen**
+- Environment variables are automatically managed by Shopify CLI
+- GraphQL Codegen automatically generates TypeScript types from Shopify schemas
 
 ---
 
-**Desenvolvido com ❤️ usando Shopify Hydrogen e React Router**
+**Built with ❤️ using Shopify Hydrogen and React Router**
 
-Este template foi criado para facilitar o desenvolvimento de lojas headless personalizadas no Shopify, fornecendo uma base sólida e completa para seus projetos.
+This template was created to facilitate the development of custom headless stores on Shopify, providing a solid and complete foundation for your projects.

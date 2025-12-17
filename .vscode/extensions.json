@@ -1,0 +1,31 @@
+{
+  "recommendations": [
+    // Essential for Shopify Hydrogen
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    
+    // TypeScript & React
+    "ms-vscode.vscode-typescript-next",
+    
+    // GraphQL
+    "graphql.vscode-graphql",
+    "graphql.vscode-graphql-syntax",
+    
+    // Shopify
+    "shopify.shopify-liquid",
+    
+    // Git
+    "eamodio.gitlens",
+    
+    // Code Quality
+    "usernamehw.errorlens",
+    "streetsidesoftware.code-spell-checker",
+    
+    // Utilities
+    "christian-kohler.path-intellisense",
+    "formulahendry.auto-rename-tag",
+    "ms-vscode.vscode-json"
+  ]
+}
+

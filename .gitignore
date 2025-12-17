@@ -12,9 +12,13 @@ node_modules
 .DS_Store
 Thumbs.db
 .idea
-.vscode
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Editor - Keep .vscode settings but ignore user-specific files
+.vscode/settings.json.user
+.vscode/launch.json.user
+.vscode/*.code-workspace

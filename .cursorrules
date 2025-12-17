@@ -1,0 +1,45 @@
+# Cursor Rules for Shopify Hydrogen Project
+
+## Project Context
+This is a Shopify Hydrogen storefront built with React Router 7, TypeScript, and Tailwind CSS.
+
+## Code Style & Conventions
+- Use TypeScript for all new files
+- Follow React Router 7 patterns (not Remix)
+- Use Tailwind CSS for styling
+- Prefer functional components with hooks
+- Use GraphQL fragments from `app/lib/fragments.ts`
+- Follow existing component patterns in `app/components/`
+
+## Shopify-Specific
+- Always use Storefront API (not Admin API) for storefront operations
+- Use GraphQL queries from `app/graphql/` when available
+- Generate types with `npm run codegen` after schema changes
+- Environment variables are in `.env` (never commit this file)
+
+## File Structure
+- Components: `app/components/`
+- Routes: `app/routes/` (file-based routing)
+- GraphQL: `app/graphql/`
+- Utilities: `app/lib/`
+- Styles: `app/styles/`
+
+## MCP Integration
+- Shopify MCP is configured for GraphQL schema validation and documentation
+- Figma MCP is configured for design-to-code workflows
+- Use MCP tools when generating Shopify components or validating GraphQL queries
+
+## Best Practices
+- Always validate GraphQL queries against Shopify schema
+- Use TypeScript types generated from GraphQL schemas
+- Test components in isolation before integration
+- Follow accessibility guidelines (WCAG 2.1 AA)
+- Optimize images and assets
+- Use semantic HTML
+
+## Common Tasks
+- Adding new routes: Create file in `app/routes/` following React Router 7 conventions
+- Adding components: Create in `app/components/` and export
+- GraphQL queries: Add to `app/graphql/` and run `npm run codegen`
+- Styling: Use Tailwind classes, add custom styles in `app/styles/`
+
